@@ -1,0 +1,11 @@
+@baseUrl = http://127.0.0.1:5000
+
+# @name add product
+POST {{baseUrl}}/api/products/add
+Content-Type: application/json
+
+{
+  "name": "Product 1",
+  "price": 10.99,
+  "description": "This is a product description"
+}

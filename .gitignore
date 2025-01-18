@@ -1,3 +1,14 @@
 # Environments
 .env
 .venv
+
+# Flask stuff
+instance/
+
+# Temp files
+NOTES.md
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

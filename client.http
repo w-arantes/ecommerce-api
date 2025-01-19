@@ -33,3 +33,9 @@ Content-Type: application/json
   "price": 12.99,
   "description": "This is an updated product description"
 }
+
+###
+
+# @name get all products
+GET {{baseUrl}}/api/products
+Content-Type: application/json

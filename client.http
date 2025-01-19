@@ -23,3 +23,13 @@ GET {{baseUrl}}/api/products/1
 Content-Type: application/json
 
 ###
+
+# @name update product
+PUT {{baseUrl}}/api/products/update/1
+Content-Type: application/json
+
+{
+  "name": "Updated Product",
+  "price": 12.99,
+  "description": "This is an updated product description"
+}

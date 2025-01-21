@@ -1,5 +1,16 @@
 @baseUrl = http://127.0.0.1:5000
 
+# @name login
+POST {{baseUrl}}/api/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123"
+}
+
+###
+
 # @name add product
 POST {{baseUrl}}/api/products/add
 Content-Type: application/json

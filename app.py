@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from flask_login import UserMixin
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecommerce.db'
@@ -10,17 +11,28 @@ CORS(app)
 
 # Define database models
 # User Model
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    email = db.Column(db.String(120), nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+    username = db.Column(db.String(80), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=True)
+    
 # Product Model
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
+    
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    user = User.query.filter_by(username=username).first()
+    
+    if user and password == user.password:
+        return jsonify({'message': 'Logged in successfully'})
+    return jsonify({'message': 'Invalid credentials'}), 401
     
 @app.route('/api/products/add', methods=['POST'])
 def add_product():

@@ -11,6 +11,12 @@ Content-Type: application/json
 
 ###
 
+# @name logout
+POST {{baseUrl}}/logout
+Content-Type: application/json
+
+###
+
 # @name add product
 POST {{baseUrl}}/api/products/add
 Content-Type: application/json

@@ -1,11 +1,15 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager, login_user
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ecommerce.db'
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 db = SQLAlchemy(app)
 CORS(app)
 
@@ -23,7 +27,7 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=False)
     
-@app.route('/api/login', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -31,6 +35,7 @@ def login():
     user = User.query.filter_by(username=username).first()
     
     if user and password == user.password:
+        login_user(user)
         return jsonify({'message': 'Logged in successfully'})
     return jsonify({'message': 'Invalid credentials'}), 401
     

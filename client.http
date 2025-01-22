@@ -62,3 +62,9 @@ Content-Type: application/json
 # @name add product to cart
 POST {{baseUrl}}/api/cart/add/1
 Content-Type: application/json
+
+###
+
+# @name remove product from cart
+DELETE {{baseUrl}}/api/cart/remove/1
+Content-Type: application/json

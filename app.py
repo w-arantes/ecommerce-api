@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required
+from flask_login import UserMixin, LoginManager, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret-key'
@@ -57,7 +57,7 @@ def logout():
     logout_user()
     return jsonify({'message': 'Logged out successfully'})
 
-# Product API
+# Product
 @app.route('/api/products/add', methods=['POST'])
 @login_required
 def add_product():
@@ -126,9 +126,19 @@ def get_all_products():
 
     return jsonify(products_list)
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+# Cart
+@app.route('/api/cart/add/<int:product_id>', methods=['POST'])
+@login_required
+def add_to_cart(product_id):
+    user = User.query.get(int(current_user.id))
+    product = Product.query.get(product_id)
+    
+    if user and product:
+        cart_item = CartItem(user_id=user.id, product_id=product.id)
+        db.session.add(cart_item)
+        db.session.commit()
+        return jsonify({'message': 'Product added to cart successfully'})
+    return jsonify({'message': 'Failed to add product to the cart'}), 400
 
 if __name__ == '__main__':
   app.run(debug=True)

@@ -22,7 +22,7 @@ POST {{baseUrl}}/api/products/add
 Content-Type: application/json
 
 {
-  "name": "Product 3",
+  "name": "Product 1",
   "price": 10.99,
   "description": "This is a product description"
 }
@@ -55,4 +55,10 @@ Content-Type: application/json
 
 # @name get all products
 GET {{baseUrl}}/api/products
+Content-Type: application/json
+
+###
+
+# @name add product to cart
+POST {{baseUrl}}/api/cart/add/1
 Content-Type: application/json

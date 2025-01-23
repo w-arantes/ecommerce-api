@@ -68,3 +68,9 @@ Content-Type: application/json
 # @name remove product from cart
 DELETE {{baseUrl}}/api/cart/remove/1
 Content-Type: application/json
+
+###
+
+# @name get cart details
+GET {{baseUrl}}/api/cart
+Content-Type: application/json
